@@ -2,7 +2,7 @@
 This program is designed to give Extra Sensory Perception, and automate player movement, in the game "Counter-Strike: Source". In a nutshell, this is a hack/cheat.
 
 # How does this?
-	It externally (as a seperate program from the video game) reads and writes memory using system calls from the Linux kernel. Those system calls are primarily functions like `processes_vm_readv()` and `process_vm_writev()`.
+It externally (as a seperate program from the video game) reads and writes memory using system calls from the Linux kernel. Those system calls are primarily functions like `processes_vm_readv()` and `process_vm_writev()`.
 
 # How to compile
 ### Cloning Repository
