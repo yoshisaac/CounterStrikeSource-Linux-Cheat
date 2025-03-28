@@ -113,7 +113,7 @@ void esp(pid_t game_pid, XdbeBackBuffer back_buffer, Display* draw_display, Wind
       XDrawLine(draw_display, back_buffer, gc, screen[0] + (12000/distance) + 1, y_offset[1], screen[0] - (12000/distance) - 1, y_offset[1]); //top
       XDrawLine(draw_display, back_buffer, gc, screen[0] - (12000/distance) - 1, screen[1], screen[0] + (12000/distance) + 1, screen[1]); //bottom
       
-      XSetForeground(draw_display, gc, Draw::red);
+      XSetForeground(draw_display, gc, Xutil::xcolor_from_rgb(config.esp.box_color[0], config.esp.box_color[1], config.esp.box_color[2], draw_display));
       if (player.dormant == true) XSetForeground(draw_display, gc, dormant_color);
       
       XSetLineAttributes(draw_display, gc, 2, LineSolid, CapRound, JoinRound);
@@ -124,13 +124,15 @@ void esp(pid_t game_pid, XdbeBackBuffer back_buffer, Display* draw_display, Wind
       XDrawLine(draw_display, back_buffer, gc, screen[0] - (12000/distance), screen[1], screen[0] + (12000/distance), screen[1]);
     }
 
+    //dormant flag
     if (player.dormant == true) {
       XSetForeground(draw_display, gc, Draw::gray);
       XDrawString(draw_display, back_buffer, gc, screen[0] + (12000/distance)+4, y_offset_text2[1], "dormant", strlen("dormant"));
     }    
+
     //snap lines
     if (config.esp.snap_lines) {
-      XSetForeground(draw_display, gc, Draw::green);
+      XSetForeground(draw_display, gc, Xutil::xcolor_from_rgb(config.esp.snap_lines_color[0], config.esp.snap_lines_color[1], config.esp.snap_lines_color[2], draw_display));
       XSetLineAttributes(draw_display, gc, 0, LineSolid, CapButt, JoinMiter);
       
       XDrawLine(draw_display, back_buffer, gc, 1920/2, 1080, screen[0], screen[1]);
@@ -161,61 +163,61 @@ void esp(pid_t game_pid, XdbeBackBuffer back_buffer, Display* draw_display, Wind
     */
 
     if (config.esp.skeleton) {
-    XSetLineAttributes(draw_display, gc, 0, LineSolid, CapButt, JoinBevel);
-    XSetForeground(draw_display, gc, Draw::white);
-    if (player.dormant == true) XSetForeground(draw_display, gc, dormant_color);
+      XSetLineAttributes(draw_display, gc, 0, LineSolid, CapButt, JoinBevel);
+      XSetForeground(draw_display, gc, Xutil::xcolor_from_rgb(config.esp.skeleton_color[0], config.esp.skeleton_color[1], config.esp.skeleton_color[2], draw_display));
+      if (player.dormant == true) XSetForeground(draw_display, gc, dormant_color);
 
-    float bone1[2];
-    float bone2[2];
-    //left leg
-    world_to_screen(game_pid, player.bone_matrix[0], bone1);
-    world_to_screen(game_pid, player.bone_matrix[1], bone2);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      float bone1[2];
+      float bone2[2];
+      //left leg
+      world_to_screen(game_pid, player.bone_matrix[0], bone1);
+      world_to_screen(game_pid, player.bone_matrix[1], bone2);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    world_to_screen(game_pid, player.bone_matrix[2], bone1);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      world_to_screen(game_pid, player.bone_matrix[2], bone1);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    //right leg
-    world_to_screen(game_pid, player.bone_matrix[0], bone1);
-    world_to_screen(game_pid, player.bone_matrix[5], bone2);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      //right leg
+      world_to_screen(game_pid, player.bone_matrix[0], bone1);
+      world_to_screen(game_pid, player.bone_matrix[5], bone2);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    world_to_screen(game_pid, player.bone_matrix[6], bone1);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      world_to_screen(game_pid, player.bone_matrix[6], bone1);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    //back + head
-    world_to_screen(game_pid, player.bone_matrix[0], bone1);
-    world_to_screen(game_pid, player.bone_matrix[10], bone2);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      //back + head
+      world_to_screen(game_pid, player.bone_matrix[0], bone1);
+      world_to_screen(game_pid, player.bone_matrix[10], bone2);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    world_to_screen(game_pid, player.bone_matrix[12], bone1);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      world_to_screen(game_pid, player.bone_matrix[12], bone1);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    world_to_screen(game_pid, player.bone_matrix[14], bone2);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      world_to_screen(game_pid, player.bone_matrix[14], bone2);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
     
-    //left arm
-    world_to_screen(game_pid, player.bone_matrix[12], bone1);
-    world_to_screen(game_pid, player.bone_matrix[16], bone2);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      //left arm
+      world_to_screen(game_pid, player.bone_matrix[12], bone1);
+      world_to_screen(game_pid, player.bone_matrix[16], bone2);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    world_to_screen(game_pid, player.bone_matrix[17], bone1);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      world_to_screen(game_pid, player.bone_matrix[17], bone1);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    world_to_screen(game_pid, player.bone_matrix[18], bone2);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      world_to_screen(game_pid, player.bone_matrix[18], bone2);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    //right arm
-    world_to_screen(game_pid, player.bone_matrix[12], bone1);
-    world_to_screen(game_pid, player.bone_matrix[29], bone2);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
+      //right arm
+      world_to_screen(game_pid, player.bone_matrix[12], bone1);
+      world_to_screen(game_pid, player.bone_matrix[29], bone2);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);
 
-    world_to_screen(game_pid, player.bone_matrix[30], bone1);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);    
+      world_to_screen(game_pid, player.bone_matrix[30], bone1);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);    
 
-    world_to_screen(game_pid, player.bone_matrix[31], bone2);
-    XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);         
+      world_to_screen(game_pid, player.bone_matrix[31], bone2);
+      XDrawLine(draw_display, back_buffer, gc, bone1[0], bone1[1], bone2[0], bone2[1]);         
 
     }
     

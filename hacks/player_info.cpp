@@ -41,8 +41,6 @@ void players(pid_t game_pid) {
 
     float aim_punch[2];
     Memory::read(game_pid, player + 0x1274, &aim_punch, sizeof(float[2]));
-    aim_punch[0] *= 2;
-    aim_punch[1] *= 2;
 
     int shots_fired;
     Memory::read(game_pid, player + 0x1A2C, &shots_fired, sizeof(int));
@@ -54,8 +52,8 @@ void players(pid_t game_pid) {
     Memory::read(game_pid, player + 0x808, &bone_matrix_ptr, sizeof(uintptr_t));
     uint32_t tmp;
     Memory::read(game_pid, player + 0x808, &tmp, sizeof(uint32_t)); //stupid hack to check for a null pointer
-    float bone_matrix[200][3];
-    for (int i = 0; i < 100 && bone_matrix_ptr != NULL && bone_matrix_ptr != tmp; ++i) {
+    float bone_matrix[40][3];
+    for (int i = 0; i < 40 && bone_matrix_ptr != NULL && bone_matrix_ptr != tmp; ++i) {
       uintptr_t bone = bone_matrix_ptr + 0xC + (0x30 * i);
       Memory::read(game_pid, bone, &bone_matrix[i][0], sizeof(float));
       Memory::read(game_pid, bone + 0x10, &bone_matrix[i][1], sizeof(float));

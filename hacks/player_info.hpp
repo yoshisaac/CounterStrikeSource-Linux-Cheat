@@ -9,6 +9,7 @@ namespace PlayerInfo {
 
   class Player {
   public:
+    //player structure
     int index;
     int health;
     int team_num;
@@ -19,11 +20,13 @@ namespace PlayerInfo {
     unsigned char life_state;
     float aim_punch[2];
     float location[3];
-    float bone_matrix[200][3];
+    float bone_matrix[40][3];
 
+    //esp
     int dormant_alpha;
     int dormant_frames;
 
+    //aimbot
     float fov_aim_distance;
     
     Player() {
@@ -42,7 +45,7 @@ namespace PlayerInfo {
 	   bool dormant, bool crouched, bool on_ground,
 	   float height, float location[3],
 	   float aim_punch[2],
-	   float bone_matrix[200][3],
+	   float bone_matrix[40][3],
 	   int dormant_alpha, int dormant_frames) {
       this->index = index;
       this->health = health;
@@ -61,7 +64,7 @@ namespace PlayerInfo {
       this->location[1] = location[1];
       this->location[2] = location[2];
 
-      for (int i = 0; i < 200; ++i) {
+      for (int i = 0; i < 40; ++i) {
 	this->bone_matrix[i][0] = bone_matrix[i][0];	
       	this->bone_matrix[i][1] = bone_matrix[i][1];	
       	this->bone_matrix[i][2] = bone_matrix[i][2];	

@@ -13,7 +13,6 @@ void aimbot(pid_t game_pid, Display* aim_display) {
   for (;;) {
     for (unsigned long i = 0; i < 64; ++i) {
       if (!config.aim.master) break;
-      //printf("hit2\n");
       
       PlayerInfo::Player player = PlayerInfo::get_player(i);
       PlayerInfo::Player plocal = PlayerInfo::get_local_player();
@@ -79,8 +78,8 @@ void aimbot(pid_t game_pid, Display* aim_display) {
 	  plocal_angles_final[1] = 0;
 	
 	if (config.aim.recoil) {
-	  plocal_angles_final[0] -= (plocal.aim_punch[0]);
-	  plocal_angles_final[1] -= (plocal.aim_punch[1]);
+	  plocal_angles_final[0] -= (plocal.aim_punch[0] * 2);
+	  plocal_angles_final[1] -= (plocal.aim_punch[1] * 2);
 	} 
 
       }
@@ -93,6 +92,6 @@ void aimbot(pid_t game_pid, Display* aim_display) {
 	PlayerInfo::l_players[Aimbot::index].fov_aim_distance = fov;
       }
     }
-  }
+ }
   usleep(1000*1000/250);
 }

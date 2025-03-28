@@ -6,11 +6,13 @@
 #include "hacks/aimbot.hpp"
 #include "hacks/draw.hpp"
 #include "hacks/bhop.hpp"
+#include "hacks/spin.hpp"
 
 #include "gui/gui.hpp"
 
 #include "client.hpp"
 #include "engine.hpp"
+#include "server.hpp"
 
 #include "process.hpp"
 #include "memory.hpp"
@@ -113,6 +115,9 @@ int main(int argc, char *argv[]) {
   const uintptr_t engine_address = Memory::module_base_address(game_pid, "linux64/engine.so");
   printf("engine: %p\n", engine_address);
 
+  const uintptr_t server_address = Memory::module_base_address(game_pid, "linux64/server.so");
+  printf("server: %p\n", server_address);  
+  
   PlayerInfo::entity_list = client_address + 0xFA8528;
 
   PlayerInfo::ptr_local_player = client_address + 0xF946B0;
@@ -126,6 +131,16 @@ int main(int argc, char *argv[]) {
   Engine::view_angles = engine_address + 0xA13494;
 
   //printf("view_angles: %p\n", Client::view_angles);
+
+  Client::in_menu = client_address + 0x104ACC9;
+
+  Client::mouse_enable = client_address + 0x104ACC9;
+  Client::draw_model = client_address + 0x104AD61;
+
+  Client::server_name = client_address + 0x104AB3C;
+  Client::map_name = client_address + 0x104AA38;
+
+  Server::show_impacts = server_address + 0xABBF18;
   
   std::thread gui_thread(gui, argc, argv);
   pthread_setname_np(gui_thread.native_handle(), "gui_thread");  
@@ -138,8 +153,11 @@ int main(int argc, char *argv[]) {
 
   std::thread bhop_thread(bhop, game_pid, bhop_display);
   pthread_setname_np(bhop_thread.native_handle(), "bhop_thread");
-  
-  for (;;) {
+
+  std::thread spin_thread(spin, game_pid);
+  pthread_setname_np(spin_thread.native_handle(), "spin_thread");
+
+  for (;;) { //player iterator thread
     players(game_pid);
     usleep(1000*1000/250);
   }
