@@ -71,7 +71,7 @@ void gui(int argc, char* argv[]) {
   box_color_button->update();
   box_color_dialog_layout->addWidget(box_color_dialog);
   box_color_dialog->setWindowFlags(Qt::Widget);
-  box_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons | QColorDialog::NoEyeDropperButton);
+  box_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons);
   box_layout->addWidget(box_color_button);
   QObject::connect(box_color_button, &QPushButton::clicked, [&]() {
     box_color_window.show();
@@ -117,7 +117,7 @@ void gui(int argc, char* argv[]) {
   skeleton_color_button->update();
   skeleton_color_dialog_layout->addWidget(skeleton_color_dialog);
   skeleton_color_dialog->setWindowFlags(Qt::Widget);
-  skeleton_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons | QColorDialog::NoEyeDropperButton);
+  skeleton_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons);
   skeleton_layout->addWidget(skeleton_color_button);
   QObject::connect(skeleton_color_button, &QPushButton::clicked, [&]() {
     skeleton_color_window.show();
@@ -155,7 +155,7 @@ void gui(int argc, char* argv[]) {
   snap_lines_color_button->update();
   snap_lines_color_dialog_layout->addWidget(snap_lines_color_dialog);
   snap_lines_color_dialog->setWindowFlags(Qt::Widget);
-  snap_lines_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons | QColorDialog::NoEyeDropperButton);
+  snap_lines_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons);
   snap_lines_layout->addWidget(snap_lines_color_button);
   QObject::connect(snap_lines_color_button, &QPushButton::clicked, [&]() {
     snap_lines_color_window.show();
@@ -208,7 +208,7 @@ void gui(int argc, char* argv[]) {
   crosshair_color_button->update();
   crosshair_color_dialog_layout->addWidget(crosshair_color_dialog);
   crosshair_color_dialog->setWindowFlags(Qt::Widget);
-  crosshair_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons | QColorDialog::NoEyeDropperButton);
+  crosshair_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons);
   crosshair_layout->addWidget(crosshair_color_button);
   QObject::connect(crosshair_color_button, &QPushButton::clicked, [&]() {
     crosshair_color_window.show();
@@ -246,7 +246,7 @@ void gui(int argc, char* argv[]) {
   crosshair_recoil_color_button->update();
   crosshair_recoil_color_dialog_layout->addWidget(crosshair_recoil_color_dialog);
   crosshair_recoil_color_dialog->setWindowFlags(Qt::Widget);
-  crosshair_recoil_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons | QColorDialog::NoEyeDropperButton);
+  crosshair_recoil_color_dialog->setOptions(QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons);
   crosshair_recoil_layout->addWidget(crosshair_recoil_color_button);
   QObject::connect(crosshair_recoil_color_button, &QPushButton::clicked, [&]() {
     crosshair_recoil_color_window.show();

@@ -17,7 +17,7 @@ Install the necessary packages.
   
 Debian Advanced Package Tool (APT):
 ```bash
-$ #TODO
+$ sudo apt install libx11-dev libxext-dev libxfixes-dev libxcomposite-dev qt6-base-dev
 ```
   
 Arch Package Manager (pacman):  

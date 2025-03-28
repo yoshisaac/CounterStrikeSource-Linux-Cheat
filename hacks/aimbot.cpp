@@ -44,7 +44,7 @@ void aimbot(pid_t game_pid, Display* aim_display) {
 
       float distance = distance_3d(plocal.location, player.location);
 
-      float fov = sqrt(powf(sin((plocal_angles[0] - plocal_angles_final[0] + plocal.aim_punch[0]) * pideg) * distance, 2.0) + powf(sin((plocal_angles[1] - plocal_angles_final[1] + plocal.aim_punch[1]) * pideg) * distance, 2.0));
+      float fov = sqrt(powf(sin((plocal_angles[0] - plocal_angles_final[0] + plocal.aim_punch[0] * 2.0) * pideg) * distance, 2.0) + powf(sin((plocal_angles[1] - plocal_angles_final[1] + plocal.aim_punch[1] * 2.0) * pideg) * distance, 2.0));
       
       if (Aimbot::index == i) {
 	
